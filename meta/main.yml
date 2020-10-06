@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Dominik Lenhardt
+  description: Ansible role for installing and configuring node_exporter - by https://github.com/cloudalchemy/ansible-node-exporter
+  license: license (Apache)
+  min_ansible_version: 2.5
+  platforms:
+  - name: EL
+    versions:
+    - 7
+    - 8
+  categories:
+  - system
+  - monitoring
+dependencies: []

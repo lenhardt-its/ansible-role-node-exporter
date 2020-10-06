@@ -1,0 +1,54 @@
+---
+proxy_env: {}
+node_exporter_version: 1.0.1
+node_exporter_web_listen_address: "{{ ansible_default_ipv4.address }}"
+node_exporter_binary_install_dir: "/usr/local/bin"
+node_exporter_web_listen_port: "9100"
+node_exporter_system_user: "{{ prometheus_user | default('prometheus') }}"
+node_exporter_system_group: "{{ prometheus_group | default('prometheus') }}"
+node_exporter_user_additional_groups: "adm"
+node_exporter_create_consul_agent_service: true
+node_exporter_textfile_dir: "/var/lib/node_exporter"
+node_exporter_textfile_collectors: []
+# node_exporter_textfile_collectors:
+#   - src: "/tmp/apt.sh"
+#     user: root
+#     calendar: ""
+#     active_sec: ""
+#     boot_sec: ""
+#     startup_sec: ""
+#     unit_active_sec: ""
+#     unit_inactive_sec: ""
+node_exporter_config_dir: "/etc/node_exporter"
+node_exporter_log_level: warn
+node_exporter_log_format: "json"
+node_exporter_firewalld_state: "enabled" # enabled/disabled
+node_exporter_disable_go_metrics: true
+
+node_exporter_tls_server_config: {}
+
+node_exporter_http_server_config: {}
+
+# Generate Passwords:
+# $ sudo dnf install httpd-tools
+# $ htpasswd -nBC 10 "" | tr -d ':\n'
+node_exporter_basic_auth_users: {}
+
+node_exporter_enabled_collectors:
+  - filesystem:
+      ignored-mount-points: "^/(boot|boot/efi|dev.+|proc|run|run.+|sys.+|var/lib/docker.+|var/lib/containers/storage.+)($|/)$"
+  - textfile:
+      directory: "{{ node_exporter_textfile_dir }}"
+
+node_exporter_disabled_collectors:
+  - bonding
+  - zfs
+  - btrfs
+  - infiniband
+  - edac
+  - nfs
+  - nfsd
+  - xfs
+  - vmstat
+  - entropy
+  - rapl
