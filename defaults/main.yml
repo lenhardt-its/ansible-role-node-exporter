@@ -1,13 +1,13 @@
 ---
 proxy_env: {}
-node_exporter_version: 1.0.1
+node_exporter_version: 1.1.0
 node_exporter_web_listen_address: "{{ ansible_default_ipv4.address }}"
 node_exporter_binary_install_dir: "/usr/local/bin"
 node_exporter_web_listen_port: "9100"
 node_exporter_system_user: "{{ prometheus_user | default('prometheus') }}"
 node_exporter_system_group: "{{ prometheus_group | default('prometheus') }}"
 node_exporter_user_additional_groups: "adm"
-node_exporter_create_consul_agent_service: true
+node_exporter_create_consul_agent_service: false
 node_exporter_textfile_dir: "/var/lib/node_exporter"
 node_exporter_textfile_collectors: []
 # node_exporter_textfile_collectors:
