@@ -244,6 +244,7 @@
     setype: http_port_t
     state: present
   when:
+    - ansible_os_family == 'RedHat'
     - ansible_version.full is version_compare('2.4', '>=')
     - ansible_selinux.status == "enabled"
   become: true
@@ -254,7 +255,9 @@
     port: "{{ node_exporter_web_listen_port }}/tcp"
     permanent: yes
     state: enabled
-  when: node_exporter_firewalld_state == "enabled"
+  when:
+    - ansible_os_family == 'RedHat'
+    - node_exporter_firewalld_state == "enabled"
   register: "_firewalld_node_exporter_state"
   become: true
   tags: firewalld
@@ -263,7 +266,9 @@
   service:
     name: firewalld
     state: reloaded
-  when: _firewalld_node_exporter_state['changed']
+  when:
+    - ansible_os_family == 'RedHat'
+    - _firewalld_node_exporter_state['changed']
   become: true
   tags: firewalld
 
