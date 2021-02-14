@@ -16,6 +16,7 @@ node_exporter_textfile_collectors:
     calendar: "1h 30min"
     boot_sec: 90
   - src: "files/lvm2.sh"
+    params: "-g -p -s -t"
     user: root
     calendar: "30min"
     boot_sec: 90

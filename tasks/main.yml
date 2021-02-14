@@ -198,7 +198,7 @@
   - name: download textfile collector scripts
     copy:
       src: "{{ item.src }}"
-      dest: "{{ node_exporter_binary_install_dir }}/{{ item.src | basename }}"
+      dest: "{{ node_exporter_binary_install_dir }}/textfile_collector_{{ item.src | basename }}"
       owner: root
       group: root
       mode: "0755"
