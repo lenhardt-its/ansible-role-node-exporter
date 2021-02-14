@@ -193,6 +193,7 @@
       group: "{{ node_exporter_system_group }}"
       recurse: true
       mode: u+rwX,g+rwX,o=rX
+    tags: node_exporter
 
   - name: download textfile collector scripts
     copy:
@@ -202,6 +203,7 @@
       group: root
       mode: "0755"
     with_items: "{{ node_exporter_textfile_collectors }}"
+    tags: node_exporter
 
   - name: setup textfile collector script systemd cron service
     template:
@@ -209,6 +211,7 @@
       dest: "/etc/systemd/systemd/textfile-collector-{{ item.src | basename }}.service"
     with_items: "{{ node_exporter_textfile_collectors }}"
     notify: reload cron
+    tags: node_exporter
 
   - name: setup textfile collector script systemd cron timer
     template:
@@ -216,6 +219,7 @@
       dest: "/etc/systemd/systemd/textfile-collector-{{ item.src | basename }}.timer"
     with_items: "{{ node_exporter_textfile_collectors }}"
     notify: reload cron
+    tags: node_exporter
 
   - name: enable textfile collector
     systemd:
@@ -225,6 +229,7 @@
       state: started
     with_items: "{{ node_exporter_textfile_collectors }}"
   when: node_exporter_textfile_dir | length > 0
+  tags: node_exporter
 
 - name: create systemd service unit
   template:
@@ -260,7 +265,9 @@
     - node_exporter_firewalld_state == "enabled"
   register: "_firewalld_node_exporter_state"
   become: true
-  tags: firewalld
+  tags:
+    - firewalld
+    - node_exporter
 
 - name: reload firewalld service
   service:
@@ -270,7 +277,9 @@
     - ansible_os_family == 'RedHat'
     - _firewalld_node_exporter_state['changed']
   become: true
-  tags: firewalld
+  tags:
+    - firewalld
+    - node_exporter
 
 - name: start and enable node_exporter
   systemd:
