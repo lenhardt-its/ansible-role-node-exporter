@@ -208,7 +208,7 @@
   - name: setup textfile collector script systemd cron service
     template:
       src: "cron.service.j2"
-      dest: "/etc/systemd/systemd/textfile-collector-{{ item.src | basename }}.service"
+      dest: "/etc/systemd/system/textfile-collector-{{ item.src | basename }}.service"
     with_items: "{{ node_exporter_textfile_collectors }}"
     notify: reload cron
     tags: node_exporter
@@ -216,7 +216,7 @@
   - name: setup textfile collector script systemd cron timer
     template:
       src: "cron.timer.j2"
-      dest: "/etc/systemd/systemd/textfile-collector-{{ item.src | basename }}.timer"
+      dest: "/etc/systemd/system/textfile-collector-{{ item.src | basename }}.timer"
     with_items: "{{ node_exporter_textfile_collectors }}"
     notify: reload cron
     tags: node_exporter
