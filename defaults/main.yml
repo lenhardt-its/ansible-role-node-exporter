@@ -9,7 +9,16 @@ node_exporter_system_group: "{{ prometheus_group | default('prometheus') }}"
 node_exporter_user_additional_groups: "adm"
 node_exporter_create_consul_agent_service: false
 node_exporter_textfile_dir: "/var/lib/node_exporter"
-node_exporter_textfile_collectors: []
+#node_exporter_textfile_collectors: []
+node_exporter_textfile_collectors:
+  - src: "files/apt.sh"
+    user: root
+    calendar: "1h 30min"
+    boot_sec: 90
+  - src: "files/lvm2.sh"
+    user: root
+    calendar: "30min"
+    boot_sec: 90
 # node_exporter_textfile_collectors:
 #   - src: "/tmp/apt.sh"
 #     user: root
