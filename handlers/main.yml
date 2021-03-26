@@ -15,10 +15,3 @@
   with_items: "{{ node_exporter_textfile_collectors }}"
   become: true
   tags: node_exporter
-
-- name: reload consul
-  systemd:
-    name: consul
-    state: reloaded
-  become: true
-  tags: node_exporter

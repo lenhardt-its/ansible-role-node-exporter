@@ -1,9 +1,14 @@
 # Ansible Role: node exporter
 
-[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
-[![GitHub tag](https://img.shields.io/github/tag/OnkelDom/ansible-role-node-exporter.svg)](https://github.com/OnkelDom/ansible-role-node-exporter/tags)
-[![GitHub issues](https://img.shields.io/github/issues/OnkelDom/ansible-role-node-exporter)](https://github.com/OnkelDom/ansible-role-node-exporter/issues)
-[![GitHub license](https://img.shields.io/github/license/OnkelDom/ansible-role-node-exporter)](https://github.com/OnkelDom/ansible-role-node-exporter/blob/master/LICENSE)
+[![ubuntu-18](https://img.shields.io/badge/ubuntu-18.x-orange?style=flat&logo=ubuntu)](https://ubuntu.com/)
+[![ubuntu-20](https://img.shields.io/badge/ubuntu-20.x-orange?style=flat&logo=ubuntu)](https://ubuntu.com/)
+[![debian-9](https://img.shields.io/badge/debian-9.x-orange?style=flat&logo=debian)](https://www.debian.org/)
+[![debian-10](https://img.shields.io/badge/debian-10.x-orange?style=flat&logo=debian)](https://www.debian.org/)
+[![centos-7](https://img.shields.io/badge/centos-7.x-orange?style=flat&logo=centos)](https://www.centos.org/)
+[![centos-8](https://img.shields.io/badge/centos-8.x-orange?style=flat&logo=centos)](https://www.centos.org/)
+[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg?style=flat)](https://opensource.org/licenses/MIT)
+[![GitHub issues](https://img.shields.io/github/issues/OnkelDom/ansible-role-node-exporter?style=flat)](https://github.com/OnkelDom/ansible-role-node-exporter/issues)
+[![GitHub tag](https://img.shields.io/github/tag/OnkelDom/ansible-role-node-exporter.svg?style=flat)](https://github.com/OnkelDom/ansible-role-node-exporter/tags)
 
 ## Description
 
@@ -11,7 +16,8 @@ Deploy Prometheus Node Exporter [node exporter](https://github.com/prometheus/no
 
 ## Requirements
 
-- Ansible >= 2.5 (It might work on previous versions, but we cannot guarantee it)
+- Ansible >= 2.9 (It might work on previous versions, but we cannot guarantee it)
+- Community Packages: `ansible-galaxy collection install community.general`
 
 ## Role Variables
 
@@ -19,14 +25,26 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
-| `node_exporter_version` | 0.18.1 | Node exporter package version. Also accepts latest as parameter. |
-| `node_exporter_web_listen_address` | "0.0.0.0:9100" | Address on which node exporter will listen |
-| `node_exporter_system_group` | "node-exp" | System group used to run node_exporter |
-| `node_exporter_system_user` | "node-exp" | System user used to run node_exporter |
-| `node_exporter_enabled_collectors` | [ systemd, textfile ] | List of additionally enabled collectors. It adds collectors to [those enabled by default](https://github.com/prometheus/node_exporter#enabled-by-default) |
-| `node_exporter_disabled_collectors` | [] | List of disabled collectors. By default node_exporter disables collectors listed [here](https://github.com/prometheus/node_exporter#disabled-by-default). |
-| `node_exporter_textfile_dir` | "/var/lib/node_exporter" | Directory used by the [Textfile Collector](https://github.com/prometheus/node_exporter#textfile-collector). To get permissions to write metrics in this directory, users must be in `node-exp` system group. |
-| `node_exporter_textfile_collectors` | [] | List of textfile collectors which should be copied and crontab setup for them. |
+| `proxy_env` | {} | Proxy environment variables |
+| `node_exporter_version` | 1.1.0 | install version |
+| `node_exporter_web_listen_address` | 0.0.0.0 | default listen address |
+| `node_exporter_web_listen_port` | 9100 | default listen port |
+| `node_exporter_binary_install_dir` | /usr/local/bin | default bin dir |
+| `node_exporter_system_user` | "{{ prometheus_user | default('prometheus') }}" | default system user |
+| `node_exporter_system_group` | "{{ prometheus_group | default('prometheus') }}" | default system group |
+| `node_exporter_user_additional_groups` | "adm" | additional user group |
+| `node_exporter_textfile_dir` | /var/lib/node_exporter | directory used by the [Textfile Collector](https://github.com/prometheus/node_exporter#textfile-collector). To get permissions to write metrics in this directory, users must be in `{{ prometheus_user | default('prometheus') }}` system group. |
+| `node_exporter_config_dir` | /etc/node_exporter | config dir |
+| `node_exporter_log_level` | warn | default log level |
+| `node_exporter_log_format` | json | default log format |
+| `node_exporter_allow_firewall` | false | allow port on firewall |
+| `node_exporter_disable_go_metrics` | true | disable useless metrics |
+| `node_exporter_textfile_collectors` | [] | list of textfile collectors which should be copied and crontab setup for them. |
+| `node_exporter_tls_server_config` | {} | tls config |
+| `node_exporter_http_server_config` | {} | http config |
+| `node_exporter_basic_auth_users` | {} | basic auht config |
+| `node_exporter_enabled_collectors` | [ systemd, textfile ] | list of additionally enabled collectors. It adds collectors to [those enabled by default](https://github.com/prometheus/node_exporter#enabled-by-default) |
+| `node_exporter_disabled_collectors` | [defaults/main.yml](defaults/main.yml) | list of disabled collectors. By default node_exporter disables collectors listed [here](https://github.com/prometheus/node_exporter#disabled-by-default). |
 
 ## Example
 
@@ -42,10 +60,8 @@ Following playbook sets up few more advanced features of this role. Mostly:
 ```yaml
 - hosts: all
   roles:
-    - onkeldom.ansible-role-node-exporter
+    - onkeldom.node-exporter
   vars:
-    node_exporter_system_group: "root"
-    node_exporter_system_user: "root"
     node_exporter_enabled_collectors:
       - systemd
     node_exporter_textfile_collectors:

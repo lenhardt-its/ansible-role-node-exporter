@@ -1,25 +1,30 @@
 ---
 proxy_env: {}
 node_exporter_version: 1.1.0
-node_exporter_web_listen_address: "{{ ansible_default_ipv4.address }}"
-node_exporter_binary_install_dir: "/usr/local/bin"
-node_exporter_web_listen_port: "9100"
+node_exporter_web_listen_address: 0.0.0.0
+node_exporter_binary_install_dir: /usr/local/bin
+node_exporter_web_listen_port: 9100
 node_exporter_system_user: "{{ prometheus_user | default('prometheus') }}"
 node_exporter_system_group: "{{ prometheus_group | default('prometheus') }}"
 node_exporter_user_additional_groups: "adm"
 node_exporter_create_consul_agent_service: false
-node_exporter_textfile_dir: "/var/lib/node_exporter"
-#node_exporter_textfile_collectors: []
-node_exporter_textfile_collectors:
-  - src: "files/apt.sh"
-    user: root
-    calendar: "1h 30min"
-    boot_sec: 90
-  - src: "files/lvm2.sh"
-    params: "-g -p -s -t"
-    user: root
-    calendar: "30min"
-    boot_sec: 90
+node_exporter_textfile_dir: /var/lib/node_exporter
+node_exporter_config_dir: /etc/node_exporter
+node_exporter_log_level: warn
+node_exporter_log_format: json
+node_exporter_allow_firewall: false
+node_exporter_disable_go_metrics: true
+node_exporter_textfile_collectors: []
+#node_exporter_textfile_collectors:
+#  - src: "files/apt.sh"
+#    user: root
+#    calendar: "1h 30min"
+#    boot_sec: 90
+#  - src: "files/lvm2.sh"
+#    params: "-g -p -s -t"
+#    user: root
+#    calendar: "30min"
+#    boot_sec: 90
 # node_exporter_textfile_collectors:
 #   - src: "/tmp/apt.sh"
 #     user: root
@@ -29,11 +34,6 @@ node_exporter_textfile_collectors:
 #     startup_sec: ""
 #     unit_active_sec: ""
 #     unit_inactive_sec: ""
-node_exporter_config_dir: "/etc/node_exporter"
-node_exporter_log_level: warn
-node_exporter_log_format: "json"
-node_exporter_firewalld_state: "enabled" # enabled/disabled
-node_exporter_disable_go_metrics: true
 
 node_exporter_tls_server_config: {}
 

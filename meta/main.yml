@@ -1,15 +1,29 @@
 ---
 galaxy_info:
+  role_name: node-exporter
   author: Dominik Lenhardt
-  description: Ansible role for installing and configuring node_exporter - by https://github.com/cloudalchemy/ansible-node-exporter
-  license: license (Apache)
-  min_ansible_version: 2.5
+  description: Ansible role for installing and configuring node_exporter
+  license: "MIT"
+  min_ansible_version: 2.9
   platforms:
-  - name: EL
-    versions:
-    - 7
-    - 8
-  categories:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Debian
+      versions:
+        - buster
+        - stretch
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+  galaxy_tags:
   - system
+  - network
+  - linux
   - monitoring
+  - prometheus
+  - node-exporter
+  - exporter
 dependencies: []
