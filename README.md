@@ -32,8 +32,8 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `node_exporter_web_listen_address` | 0.0.0.0 | default listen address |
 | `node_exporter_web_listen_port` | 9100 | default listen port |
 | `node_exporter_binary_install_dir` | /usr/local/bin | default bin dir |
-| `node_exporter_system_user` | "{{ prometheus_user | default('prometheus') }}" | default system user |
-| `node_exporter_system_group` | "{{ prometheus_group | default('prometheus') }}" | default system group |
+| `node_exporter_system_user` | prometheus | default system user |
+| `node_exporter_system_group` | prometheus | default system group |
 | `node_exporter_user_additional_groups` | "adm" | additional user group |
 | `node_exporter_textfile_dir` | /var/lib/node_exporter | directory used by the [Textfile Collector](https://github.com/prometheus/node_exporter#textfile-collector). To get permissions to write metrics in this directory, users must be in `{{ prometheus_user | default('prometheus') }}` system group. |
 | `node_exporter_config_dir` | /etc/node_exporter | config dir |
