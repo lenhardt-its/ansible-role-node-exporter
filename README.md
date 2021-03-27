@@ -62,7 +62,7 @@ Following playbook sets up few more advanced features of this role. Mostly:
 ```yaml
 - hosts: all
   roles:
-    - onkeldom.node-exporter
+    - onkeldom.node_exporter
   vars:
     node_exporter_enabled_collectors:
       - systemd

@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: node-exporter
+  role_name: node_exporter
   author: Dominik Lenhardt
   description: Ansible role for installing and configuring node_exporter
   license: "MIT"
