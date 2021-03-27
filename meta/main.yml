@@ -24,6 +24,6 @@ galaxy_info:
   - linux
   - monitoring
   - prometheus
-  - node_exporter
+  - node
   - exporter
 dependencies: []
