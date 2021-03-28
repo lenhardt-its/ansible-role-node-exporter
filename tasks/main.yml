@@ -305,7 +305,9 @@
     port: "{{ node_exporter_web_listen_port }}"
     proto: tcp
     state: enabled
-    comment: "node_exporter"
+    comment: "Node Exporter"
+  changed_when: False
+  ignore_errors: True
   notify: reload ufw
   become: true
   tags: node_exporter
@@ -319,6 +321,8 @@
     port: "{{ node_exporter_web_listen_port }}/tcp"
     permanent: yes
     state: true
+  changed_when: False
+  ignore_errors: True
   when:
     - "'running' in _firewalld_status.stdout"
     - node_exporter_allow_firewall
