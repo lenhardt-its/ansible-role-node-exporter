@@ -134,7 +134,7 @@
     when: not ansible_check_mode
     become: true
     tags: node_exporter
-  when: (not __node_exporter_is_installed.stat.exists) or (__node_exporter_current_version_output.stdout.split(" ")[2] != node_exporter_version)
+  when: (not __node_exporter_is_installed.stat.exists) or (__node_exporter_current_version_output.stderr_lines[0].split(" ")[2] != node_exporter_version)
 
 - name: assert collectors are not both disabled and enabled at the same time
   assert:
