@@ -1,4 +1,0 @@
----
-node_exporter_selinux_packages:
-  - libselinux-python
-  - policycoreutils-python
