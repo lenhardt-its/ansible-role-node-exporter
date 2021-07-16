@@ -225,6 +225,19 @@
   when: node_exporter_textfile_dir | length > 0
   tags: node_exporter
 
+- name: configure web
+  copy:
+    content: "{{ node_exporter_webconfig | to_nice_yaml(indent=2) }}"
+    dest: "{{ node_exporter_config_dir }}/web.yml"
+    force: true
+    owner: "{{ node_exporter_system_user }}"
+    group: "{{ node_exporter_system_group }}"
+    mode: 0644
+  notify: reload node_exporter
+  when: node_exporter_webconfig | length > 0
+  become: true
+  tags: node_exporter
+
 - name: create systemd service unit
   template:
     src: node_exporter.service.j2

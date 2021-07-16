@@ -61,3 +61,5 @@ node_exporter_disabled_collectors:
   - vmstat
   - entropy
   - rapl
+
+node_exporter_webconfig: []

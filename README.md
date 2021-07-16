@@ -17,8 +17,6 @@ Deploy Prometheus Node Exporter [node exporter](https://github.com/prometheus/no
 ## Requirements
 
 - Ansible >= 2.9 (It might work on previous versions, but we cannot guarantee it)
-- Community Packages: `ansible-galaxy collection install community.general`
-
 ## Role Variables
 
 All variables which can be overridden are stored in [defaults/main.yml](defaults/main.yml) file as well as in table below.
@@ -45,6 +43,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | `node_exporter_basic_auth_users` | {} | basic auht config |
 | `node_exporter_enabled_collectors` | [ systemd, textfile ] | list of additionally enabled collectors. It adds collectors to [those enabled by default](https://github.com/prometheus/node_exporter#enabled-by-default) |
 | `node_exporter_disabled_collectors` | [defaults/main.yml](defaults/main.yml) | list of disabled collectors. By default node_exporter disables collectors listed [here](https://github.com/prometheus/node_exporter#disabled-by-default). |
+| `node_exporter_webconfig` | [] | Define Node-Exporter Webconfig |
 
 ## Example
 
