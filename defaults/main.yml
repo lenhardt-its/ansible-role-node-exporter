@@ -17,22 +17,13 @@ node_exporter_textfile_collectors: []
 #node_exporter_textfile_collectors:
 #  - src: "files/apt.sh"
 #    user: root
-#    calendar: "1h 30min"
+#    calendar: "*-*-* 00:00:00" # every day
 #    boot_sec: 90
 #  - src: "files/lvm2.sh"
 #    params: "-g -p -s -t"
 #    user: root
-#    calendar: "30min"
+#    calendar: "*-*-* 00:00:00" # every day
 #    boot_sec: 90
-# node_exporter_textfile_collectors:
-#   - src: "/tmp/apt.sh"
-#     user: root
-#     calendar: ""
-#     active_sec: ""
-#     boot_sec: ""
-#     startup_sec: ""
-#     unit_active_sec: ""
-#     unit_inactive_sec: ""
 
 node_exporter_tls_server_config: {}
 
