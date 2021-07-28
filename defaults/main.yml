@@ -22,7 +22,7 @@ node_exporter_textfile_collectors: []
 #  - src: "files/lvm2.sh"
 #    params: "-g -p -s -t"
 #    user: root
-#    calendar: "*-*-* 00:00:00" # every day
+#    calendar: "*-* 00:00:00" # every hour
 #    boot_sec: 90
 
 node_exporter_tls_server_config: {}
