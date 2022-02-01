@@ -36,7 +36,7 @@ node_exporter_basic_auth_users: {}
 
 node_exporter_enabled_collectors:
   - filesystem:
-      ignored-mount-points: "^/(boot|boot/efi|dev.+|proc|run|run.+|sys.+|var/lib/docker.+|var/lib/containers/storage.+)($|/)$"
+      mount-points-exclude: "^/(boot|boot/efi|dev.+|proc|run|run.+|sys.+|var/lib/docker.+|var/lib/containers/storage.+)($|/)$"
   - textfile:
       directory: "{{ node_exporter_textfile_dir }}"
 
